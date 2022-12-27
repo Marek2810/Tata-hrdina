@@ -2,7 +2,7 @@
 // Version: 0.50
 state("Táta hrdina")
 {
-	byte isLoading : 0xCC44, 0x298;
+	byte isLoading : 0x85E0, 0x2A4;
 	byte letsgo : 0x93925C, 0xB9;
 	byte loadedlevel : 0x939260, 0x18;
 	byte level : 0x939218, 0x4, 0x0, 0x100;
@@ -14,44 +14,48 @@ startup
 }
 
 start {
-	if (current.loadedlevel == 0 && current.letsgo == 1) return true;	
+	if (current.loadedlevel == 0 && old.letsgo == 1 && current.letsgo == 0) return true;	
 
 	if (settings["IL_Start"]){
-        if (current.letsgo == 1) return true;        
+        if (old.letsgo == 1 && current.letsgo == 0) return true;        
     }
 }
 
+reset {
+	if (old.loadedlevel != current.loadedlevel && current.loadedlevel == 0) return true; 
+}
+
 isLoading {
-	if (current.isLoading != 80) {
+	if (current.isLoading != 0) {
 		return true;
 	} 
 	return false;
 }
 
-reset
-{
-	if (current.loadedlevel == 0 && current.loadedlevel != new.loadedlevel) return true;
-}
+split {	
+	//Log:
+		//start of level
+		if (old.loadedlevel != current.loadedlevel && old.letsgo != current.letsgo && current.letsgo == 1) {
+			print("----");
+			print("start of level " + current.loadedlevel);
+		}	
+		// letsgo change
+		if (current.letsgo != old.letsgo) {
+			print("old LETSGO: " + old.letsgo + "current LETSGO is " + current.letsgo);
+		}
+		//level change
+		if (current.level != old.level) {
+			print("old LEVEL: " + old.level + "current LEVEL: " + current.level);
+		}	
+		//isLoading change
+		if (current.isLoading != old.leisLoadingvel) {
+			print("old isLoading: " + old.isLoading + "current isLoading: " + current.isLoading);
+		}	
 
-split {		
-
+	//End of level		
 	if (old.level != current.level && current.loadedlevel == current.level-1) {
-		print("end of level " + current.loadedlevel)
-		print("-----")
+		print("end of level " + current.loadedlevel);
+		print("-----");
 		return true;
-	}
-	
-	if (current.letsgo != old.letsgo) {
-		print("old LETSGO is " + old.letsgo);
-		print("current LETSGO is " + current.letsgo);
-	}
-	if (current.level != old.level) {
-		print("old LEVEL is " + old.level);
-		print("current LEVEL is " + current.level);
-	}
-	if (current.letsgo == 1) {
-		print("----")
-		print("start of level " + current.loadedlevel)
 	}	
 }
-
