@@ -48,7 +48,7 @@ split {
 			print("old LEVEL: " + old.level + "current LEVEL: " + current.level);
 		}	
 		//isLoading change
-		if (current.isLoading != old.leisLoadingvel) {
+		if (current.isLoading != old.isLoading) {
 			print("old isLoading: " + old.isLoading + "current isLoading: " + current.isLoading);
 		}	
 
