@@ -34,6 +34,7 @@ isLoading {
 
 split {	
 	//Log:
+		print("isLoading: " + current.isLoading);
 		// letsgo change
 		if (current.letsgo != old.letsgo) {
 			print("old LETSGO: " + old.letsgo + " current LETSGO is " + current.letsgo);
