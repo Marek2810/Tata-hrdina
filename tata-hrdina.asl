@@ -34,22 +34,17 @@ isLoading {
 
 split {	
 	//Log:
-		//start of level
-		if (old.loadedlevel != current.loadedlevel && old.letsgo != current.letsgo && current.letsgo == 1) {
-			print("----");
-			print("start of level " + current.loadedlevel);
-		}	
 		// letsgo change
 		if (current.letsgo != old.letsgo) {
-			print("old LETSGO: " + old.letsgo + "current LETSGO is " + current.letsgo);
+			print("old LETSGO: " + old.letsgo + " current LETSGO is " + current.letsgo);
 		}
 		//level change
-		if (current.level != old.level) {
-			print("old LEVEL: " + old.level + "current LEVEL: " + current.level);
+		if (current.loadedlevel != old.loadedlevel) {
+			print("old LEVEL: " + old.loadedlevel + " current LEVEL: " + current.loadedlevel);
 		}	
 		//isLoading change
 		if (current.isLoading != old.isLoading) {
-			print("old isLoading: " + old.isLoading + "current isLoading: " + current.isLoading);
+			print("old isLoading: " + old.isLoading + " current isLoading: " + current.isLoading);
 		}	
 
 	//End of level		
